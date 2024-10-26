@@ -21,7 +21,7 @@ function App() {
           setShow(tags);
         }}
       >
-        Add Tag
+        Export
       </Button>
 
       {show && (
