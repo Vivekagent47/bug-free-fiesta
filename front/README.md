@@ -9,8 +9,8 @@ This project is a web application built using **ReactJS**.
 ## 🛠️ Tech Stack
 
 - **ReactJS**
-- **JavaScript/TypeScript** (if applicable)
-- **Tailwind CSS / CSS Modules / Styled Components** (if styling is used)
+- **TypeScript**
+- **Tailwind CSS**
 
 ---
 

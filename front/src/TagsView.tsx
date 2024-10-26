@@ -1,27 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronDown, ChevronRight, Plus, Trash2 } from "lucide-react";
+import { ChevronDown, ChevronRight, Plus } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-
-export interface TreeNode {
-  name: string;
-  data?: string;
-  children?: TreeNode[];
-}
+import { TreeNode } from "./TagsContext";
 
 export interface TagViewProps {
   node: TreeNode;
   onUpdate: (updatedNode: TreeNode) => void;
-  onDelete?: () => void;
-  isRoot?: boolean;
 }
 
-export default function TagView({
-  node,
-  onUpdate,
-  onDelete,
-  isRoot = false,
-}: TagViewProps) {
+export default function TagView({ node, onUpdate }: TagViewProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [editName, setEditName] = useState(node.name);
@@ -46,6 +34,7 @@ export default function TagView({
       ...node,
       children: [...(node.children || []), newChild],
     };
+
     delete updatedNode.data;
     onUpdate(updatedNode);
     setIsExpanded(true);
@@ -74,12 +63,6 @@ export default function TagView({
       setIsEditing(false);
       setEditName(node.name);
     }
-  };
-
-  const handleDeleteChild = (index: number) => {
-    const updatedChildren = [...(node.children || [])];
-    updatedChildren.splice(index, 1);
-    onUpdate({ ...node, children: updatedChildren });
   };
 
   return (
@@ -120,17 +103,6 @@ export default function TagView({
             <Plus className="h-3 w-3 mr-1" />
             Add Child
           </Button>
-          {!isRoot && (
-            <Button
-              variant="destructive"
-              size="sm"
-              className="text-xs"
-              onClick={onDelete}
-              aria-label={`Delete ${node.name}`}
-            >
-              <Trash2 className="h-3 w-3" />
-            </Button>
-          )}
         </div>
       </div>
       {isExpanded && (
@@ -161,7 +133,6 @@ export default function TagView({
                 updatedChildren[index] = updatedChild;
                 onUpdate({ ...node, children: updatedChildren });
               }}
-              onDelete={() => handleDeleteChild(index)}
             />
           ))}
         </div>

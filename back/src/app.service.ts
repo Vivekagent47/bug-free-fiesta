@@ -108,9 +108,7 @@ export class AppService {
 
       // Get existing children IDs for comparison
       const existingChildren = existingTag?.children || [];
-      // const existingChildrenIds = new Set(
-      //   existingChildren.map((child) => child.id),
-      // );
+
       const newChildrenIds = new Set(
         newTag.children?.map((child) => child.id) || [],
       );
