@@ -35,7 +35,7 @@ export default function TagView({ node, onUpdate }: TagViewProps) {
       children: [...(node.children || []), newChild],
     };
 
-    delete updatedNode.data;
+    updatedNode.data = null;
     onUpdate(updatedNode);
     setIsExpanded(true);
   };

@@ -4,7 +4,7 @@ import AxiosInstance from "./lib/axios";
 export interface TreeNode {
   id?: number;
   name: string;
-  data?: string;
+  data?: string | null;
   children?: TreeNode[];
 }
 
@@ -36,13 +36,11 @@ const useTagsStore = () => {
 
   const addTag = async (tag: TreeNode) => {
     try {
-      const res = await AxiosInstance({
+      await AxiosInstance({
         method: "PUT",
         url: "/tags",
         data: tag,
       });
-
-      setTags(res.data);
     } catch (e) {
       console.error(e);
     }

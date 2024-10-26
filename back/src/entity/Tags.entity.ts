@@ -1,5 +1,7 @@
 import { Exclude } from 'class-transformer';
 import {
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -35,4 +37,12 @@ export class Tag {
   @Exclude()
   @UpdateDateColumn()
   updated_at: Date;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  validateDataAndChildren() {
+    if (this.data && this.children?.length) {
+      throw new Error('A tag cannot have both data and children');
+    }
+  }
 }
